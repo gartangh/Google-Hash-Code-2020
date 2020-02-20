@@ -25,5 +25,5 @@ if __name__ == '__main__':
 		print(f'Calculated solution for {file_name}')
 
 		print(f'Writing {file_name}')
-		# write(f'out/{file_name}.txt', libraries_to_scan)
+		write(f'out/{file_name}.txt', libraries_to_scan)
 		print(f'Wrote {file_name}')
