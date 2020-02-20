@@ -13,4 +13,4 @@ class Book:
 		return self.score / len(self.library_ids)
 		
 	def __lt__(self, other):
-		return self.score < other.score
+		return self.score > other.score
