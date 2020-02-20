@@ -29,4 +29,4 @@ class Library:
 		self.weighted_score = (a * books_weighted_score / (b * active_time)) - (c * self.number_of_setup_days)
 
 	def __lt__(self, other):
-		return self.weighted_score < other.weighted_score
+		return self.weighted_score > other.weighted_score
