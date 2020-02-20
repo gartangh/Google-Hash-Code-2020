@@ -20,7 +20,7 @@ if __name__ == '__main__':
 		tic = time()
 		books, libraries, nr_of_days = read(f'in/{file_name}.txt')
 		toc = time()
-		print(f'Read {file_name} in {toc - tic:.2} s')
+		print(f'Read {file_name} in {toc - tic:.2f} s')
 
 		print(f'Calculating solution for {file_name}')
 		tic = time()
@@ -32,4 +32,4 @@ if __name__ == '__main__':
 		tic = time()
 		write(f'out/{file_name}.txt', libraries_to_scan)
 		toc = time()
-		print(f'Wrote {file_name} in {toc - tic:.2} s')
+		print(f'Wrote {file_name} in {toc - tic:.2f} s')
