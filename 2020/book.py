@@ -8,3 +8,6 @@ class Book:
 
 	def __str__(self):
 		return f'{self.id}\n'
+
+	def getWeightedScore(self):
+		return self.score / len(self.library_ids)
