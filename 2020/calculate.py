@@ -17,6 +17,14 @@ def calculate(books, libraries, nr_of_days):
 		setup_libraries[setup_curr_library.id] = setup_curr_library
 
 		del libraries[setup_curr_library.id]
+
+		for library in libraries:
+			for book_id in setup_curr_library.book_ids[:nr_of_books]:
+				try:
+					del libraries[library].book_ids[book_id]
+				except:
+					pass
+
 		day += setup_curr_library.number_of_setup_days
 
 	return setup_libraries
