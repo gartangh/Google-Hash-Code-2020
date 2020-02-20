@@ -8,3 +8,6 @@ class Book:
 
 	def __str__(self):
 		return f'{self.id}\n'
+
+	def __lt__(self, other):
+		return self.score < other.score

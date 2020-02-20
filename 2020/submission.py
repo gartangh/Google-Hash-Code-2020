@@ -9,6 +9,7 @@ def read(filename):
 
 		# Read in books
 		books = {book_id: Book(book_id, int(book_score)) for book_id, book_score in enumerate(file.readline().split())}
+		# books = {k: v for k, v in sorted(books.items(), key=lambda book: (book[1], book[0]))}
 
 		# Read in libraries
 		libraries = {}
@@ -19,6 +20,8 @@ def read(filename):
 			libraries[library_id] = Library(library_id, library_book_ids, sum([books[book_id].score for book_id in library_book_ids]), library_nr_of_setup_days,library_nr_of_books_per_day)
 			for library_book_id in library_book_ids:
 				books[library_book_id].library_ids.append(library_id)
+
+		libraries = {k: v for k, v in sorted(libraries.items(), key=lambda library: (library[1], library[0]))}
 
 	return books, libraries, nr_of_days
 

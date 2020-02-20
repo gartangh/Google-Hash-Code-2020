@@ -17,3 +17,6 @@ class Library:
 		
 	def __str__(self):
 		return f'{self.id}\n'
+
+	def __lt__(self, other):
+		return self.total_score < other.total_score
