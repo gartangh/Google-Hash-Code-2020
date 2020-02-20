@@ -107,5 +107,5 @@ venv.bak/
 .idea/
 
 #output
-out/*
+*/out/*
 *.zip
