@@ -18,6 +18,7 @@ def calculate(books, libraries, nr_of_days):
 		setup_curr_library.sent_book_ids = setup_curr_library.book_ids[:nr_of_books]
 		setup_libraries[setup_curr_library.id] = setup_curr_library
 
+		del libraries[setup_curr_library.id]
 		day += setup_curr_library.number_of_setup_days
 
 	return setup_libraries
