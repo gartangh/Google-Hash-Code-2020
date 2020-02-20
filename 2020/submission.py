@@ -1,13 +1,37 @@
+from library import Library
+from book import Book
+
 def read(filename):
-	# TODO change to this year
 	with open(filename) as file:
-		line1 = file.readline().split()
-		M = int(line1[0])
-		N = int(line1[1])
+		# Read in general info
+		info = file.readline().split(' ')
+		nr_of_books = int(info[0])
+		nr_of_libraries = int(info[1])
+		nr_of_days = int(info[2])
 
-		slices = [int(n) for n in file.readline().split()]
+		# Read in books
+		books_scores = [int(book_score) for book_score in file.readline().split(' ')]
+		books = []
+		for book_id, book_score in enumerate(books_scores):
+			book = Book(book_id, book_score)
+			books.append(book)
 
-	return M, N, slices
+		# Read in libraries
+		libraries = []
+		for library_id in range(nr_of_libraries):
+			library_info = file.readline().split(' ')
+			library_nr_of_books = int(library_info[0])
+			library_nr_of_days = int(library_info[1])
+			library_nr_of_books_per_day = int(library_info[2])
+
+			library_book_ids = [int(library_book_id) for library_book_id in file.readline().split(' ')]
+			library_books = []		
+			for library_book_id in library_book_ids:
+				library_books.append(books[library_book_id])
+			
+			library = Library(library_id, library_books, library_nr_of_books_per_day)
+			libraries.append(library)
+	return books, libraries, nr_of_days
 
 
 def write(filename, K, slices):
