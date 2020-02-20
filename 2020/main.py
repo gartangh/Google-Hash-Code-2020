@@ -1,4 +1,4 @@
-from submission import read, write
+from submission import write, read
 from book import Book
 from library import Library
 from calculate import calculate
