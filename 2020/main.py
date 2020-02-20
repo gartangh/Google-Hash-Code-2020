@@ -17,7 +17,7 @@ if __name__ == '__main__':
 
 	for file_name in file_names:
 		print(f'Reading {file_name}')
-		books, libraries, nr_of_days = read(f'2020/in/{file_name}.txt')
+		books, libraries, nr_of_days = read(f'in/{file_name}.txt')
 		print(f'Read {file_name}')
 
 		print(f'Calculating solution for {file_name}')
@@ -25,5 +25,5 @@ if __name__ == '__main__':
 		print(f'Calculated solution for {file_name}')
 
 		print(f'Writing {file_name}')
-		write(f'2020/in/{file_name}.txt', libraries_to_scan)
+		write(f'out/{file_name}.txt', libraries_to_scan)
 		print(f'Wrote {file_name}')

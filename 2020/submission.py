@@ -1,38 +1,25 @@
 from library import Library
 from book import Book
 
+
 def read(filename):
 	with open(filename) as file:
-		file_lines = file.readlines()
-
 		# Read in general info
-		info = file_lines[0].split(" ")
-		nr_of_books = int(info[0])
-		nr_of_libraries = int(info[1])
-		nr_of_days = int(info[2])
+		nr_of_books, nr_of_libraries, nr_of_days = [int(number) for number in file.readline().split()]
 
 		# Read in books
-		books_scores = [int(book_score) for book_score in file_lines[1].split(" ")]
-		books = []
-		for book_id, book_score in enumerate(books_scores):
-			book = Book(book_id, book_score)
-			books.append(book)
+		books = {book_id: Book(book_id, int(book_score)) for book_id, book_score in enumerate(file.readline().split())}
 
 		# Read in libraries
-		libraries = []
+		libraries = {}
 		for library_id in range(nr_of_libraries):
-			library_info = file_lines[2 + (2 * library_id)].split(" ")
-			library_nr_of_books = int(library_info[0])
-			library_nr_of_setup_days = int(library_info[1])
-			library_nr_of_books_per_day = int(library_info[2])
+			library_nr_of_books, library_nr_of_setup_days, library_nr_of_books_per_day = [int(number) for number in file.readline().split()]
+			library_book_ids = [int(number) for number in file.readline().split()]
 
-			library_book_ids = [int(library_book_id) for library_book_id in file_lines[2 + (2 * library_id + 1)].split(" ")]
-			library_books = []		
+			libraries[library_id] = Library(library_id, library_book_ids, sum([books[book_id].score for book_id in library_book_ids]), library_nr_of_setup_days,library_nr_of_books_per_day)
 			for library_book_id in library_book_ids:
-				library_books.append(books[library_book_id])
-			
-			library = Library(library_id, library_books, library_nr_of_setup_days, library_nr_of_books_per_day)
-			libraries.append(library)
+				books[library_book_id].library_ids.append(library_id)
+
 	return books, libraries, nr_of_days
 
 
@@ -40,6 +27,6 @@ def write(filename, libraries_to_scan):
 	# TODO change to this year
 	with open(filename, "w+") as file:
 		file.write(f"{len(libraries_to_scan)}\n")
-		for library_to_scan in libraries_to_scan:
-			file.write(f"{library_to_scan.id} {len(library_to_scan.books)}\n")
-			file.write(" ".join([str(book.id) for book in library_to_scan.books]) + "\n")
+		for library_id, library in libraries_to_scan.items():
+			file.write(f"{library_id} {len(library.book_ids)}\n")
+			file.write(" ".join([str(book_id) for book_id in library.book_ids]) + "\n")
