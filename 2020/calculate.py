@@ -12,8 +12,7 @@ def calculate(books, libraries, nr_of_days):
 			library.calcWeightedScore(books)
 
 		# Sort on metric
-		libraries_sorted = libraries
-		# TO DO
+		libraries_sorted = {k: v for k, v in sorted(libraries.items(), key=lambda library: (library[1], library[0]))}
 
 		# Update books
 		for setup_library in setup_libraries:
