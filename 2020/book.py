@@ -11,3 +11,6 @@ class Book:
 
 	def getWeightedScore(self):
 		return self.score / len(self.library_ids)
+		
+	def __lt__(self, other):
+		return self.score < other.score
