@@ -1,6 +1,6 @@
 def calculate(books, libraries, nr_of_days):
 	step_size = 1000
-	setup_libraries = []
+	setup_libraries = {}
 	setup_curr_library = None
 	day = 0
 
@@ -16,7 +16,7 @@ def calculate(books, libraries, nr_of_days):
 		# Update books
 		nr_of_books = int((min(setup_curr_library.max_active_time, nr_of_days - day) - setup_curr_library.number_of_setup_days) * setup_curr_library.number_of_books_per_day)
 		setup_curr_library.sent_book_ids = setup_curr_library.book_ids[:nr_of_books]
-		setup_libraries.append(setup_curr_library)
+		setup_libraries[setup_curr_library.id] = setup_curr_library
 
 		day += setup_curr_library.number_of_setup_days
 
