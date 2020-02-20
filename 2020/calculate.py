@@ -13,6 +13,7 @@ def calculate(books, libraries, nr_of_days):
 		# Update books
 		nr_of_books = int((min(setup_curr_library.max_active_time, nr_of_days - day) - setup_curr_library.number_of_setup_days) * setup_curr_library.number_of_books_per_day)
 		setup_curr_library.sent_book_ids = setup_curr_library.book_ids[:nr_of_books]
+		books = [book for book in books if book not in setup_curr_library.book_ids[:nr_of_books]]
 		setup_libraries[setup_curr_library.id] = setup_curr_library
 
 		del libraries[setup_curr_library.id]
