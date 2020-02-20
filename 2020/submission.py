@@ -15,7 +15,7 @@ def read(filename):
 		for library_id in range(nr_of_libraries):
 			library_nr_of_books, library_nr_of_setup_days, library_nr_of_books_per_day = [int(number) for number in file.readline().split()]
 			library_book_ids = [int(number) for number in file.readline().split()]
-			library_book_ids = {k: v for k, v in sorted({book_id: books[book_id] for book_id in library_book_ids}.items(), key=lambda book: (book[1], book[0]))}
+			library_book_ids = [int(book_id) for book_id in {k: v for k, v in sorted({book_id: books[book_id] for book_id in library_book_ids}.items(), key=lambda book: (book[1], book[0]))}.keys()]
 			libraries[library_id] = Library(library_id, library_book_ids, sum([books[book_id].score for book_id in library_book_ids]), library_nr_of_setup_days,library_nr_of_books_per_day)
 
 			for library_book_id in library_book_ids:
