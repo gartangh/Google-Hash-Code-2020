@@ -1,5 +1,7 @@
 from submission import read, write
+import Book
+import Library
 
-read('a_example.txt')
+read('in/a_example.txt')
 
 write()
