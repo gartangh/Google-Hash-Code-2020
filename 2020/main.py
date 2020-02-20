@@ -6,12 +6,12 @@ from time import time
 if __name__ == '__main__':
 	# initialization
 	file_names = [
-		# 'a_example',
-		# 'b_read_on',
-		# 'c_incunabula',
+		'a_example',
+		'b_read_on',
+		'c_incunabula',
 		# 'd_tough_choices',
 		'e_so_many_books',
-		# 'f_libraries_of_the_world'
+		'f_libraries_of_the_world'
 	]
 
 	for file_name in file_names:
