@@ -1,34 +1,23 @@
 def calculate(books, libraries, nr_of_days):
-	step_size = nr_of_days
+	step_size = 1000
 	setup_libraries = []
 	setup_curr_library = None
-	setup_curr_days_left = 0
+	day = 0
 
-	return libraries 
-	
-	for day in range(0, nr_of_days, step_size):
+	while day < nr_of_days:
 		# Calculate weighted score (metric)
-		for library_id, library in libraries.items():
-			library.calcWeightedScore(books)
+		# for library_id, library in libraries.items():
+			# library.calcWeightedScore(books)
 
-		# Sort on metric
-		libraries_sorted = libraries
-		# TO DO
+		# Sort on metric and select libary
+		libraries_sorted = {k: v for k, v in sorted(libraries.items(), key=lambda l: (l[1], l[0]))}
+		setup_curr_library = libraries_sorted[list(libraries_sorted.keys())[0]]
 
 		# Update books
-		for setup_library in setup_libraries:
-			pass
+		nr_of_books = int((min(setup_curr_library.max_active_time, nr_of_days - day) - setup_curr_library.number_of_setup_days) * setup_curr_library.number_of_books_per_day)
+		setup_curr_library.sent_book_ids = setup_curr_library.book_ids[:nr_of_books]
+		setup_libraries.append(setup_curr_library)
 
-		# Update libraries
-		if setup_curr_days_left == 0:
-			if setup_curr_library is None:
-				# Mark library as set up
-				setup_libraries.append(setup_curr_library)
-			
-			# Select new library
-			setup_curr_library = libraries_sorted[list(libraries_sorted.keys())[0]]
-			setup_curr_days_left = setup_curr_library.number_of_setup_days
-		else:
-			setup_curr_days_left -= nr_of_days
-			
-	return libraries
+		day += setup_curr_library.number_of_setup_days
+
+	return setup_libraries

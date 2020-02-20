@@ -16,7 +16,8 @@ class Library:
 		# Derived attributes
 		self.total_score = total_score
 		self.max_active_time = number_of_setup_days + math.ceil(len(self.book_ids) / number_of_books_per_day)
-		
+		self.weighted_score = total_score
+
 	def __str__(self):
 		return f'{self.id}\n'
 
@@ -28,4 +29,4 @@ class Library:
 		self.weighted_score = (a * books_weighted_score / (b * active_time)) - (c * self.number_of_setup_days)
 
 	def __lt__(self, other):
-		return self.total_score < other.total_score
+		return self.weighted_score < other.weighted_score

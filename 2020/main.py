@@ -20,7 +20,7 @@ if __name__ == '__main__':
 		print()
 		print(f'Reading {file_name}')
 		tic = time()
-		books, libraries, nr_of_days = read(f'in/{file_name}.txt')
+		books, libraries, nr_of_days = read(f'2020/in/{file_name}.txt')
 		toc = time()
 		print(f'Read {file_name} in {toc - tic} s')
 
@@ -32,6 +32,6 @@ if __name__ == '__main__':
 
 		print(f'Writing {file_name}')
 		tic = time()
-		write(f'out/{file_name}.txt', libraries_to_scan)
+		write(f'2020/out/{file_name}.txt', libraries_to_scan)
 		toc = time()
 		print(f'Wrote {file_name} in {toc - tic} s')
