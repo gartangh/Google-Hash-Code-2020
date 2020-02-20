@@ -20,3 +20,5 @@ class Library:
 
 	def __lt__(self, other):
 		return self.total_score < other.total_score
+
+
