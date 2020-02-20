@@ -26,7 +26,7 @@ class Library:
 		active_time = (math.ceil(len(self.book_ids) / self.number_of_books_per_day))
 
 		a, b, c = 1, 1, 1
-		self.weighted_score = (a * books_weighted_score / (b * active_time)) - (c * self.number_of_setup_days)
+		self.weighted_score = self.total_score
 
 	def __lt__(self, other):
-		return self.weighted_score > other.weighted_score
+		return self.total_score > other.total_score
