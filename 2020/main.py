@@ -48,13 +48,9 @@ def calculate():
 			return Library.libraries_to_scan
 
 		# sort libraries by score and select the best library
-		# Library.libraries = {library_id: library for library_id, library in
-		# 					 sorted(Library.libraries.items(), key=lambda library: (library[1], library[0]))}
-		current_library_id = list(Library.libraries)[0]
-		current_library = Library.libraries[current_library_id]
-
-		# remove current library
-		del Library.libraries[current_library_id]
+		Library.libraries = {library_id: library for library_id, library in
+							 sorted(Library.libraries.items(), key=lambda library: (library[1], library[0]))}
+		current_library_id, current_library = list(Library.libraries.items())[0]
 
 		# send books
 		books_left = max(0, (Library.time_left - current_library.setup_time)) * current_library.rate
@@ -67,14 +63,13 @@ def calculate():
 		# update time left
 		Library.time_left -= current_library.setup_time
 
-		# remove sent books from other libraries and remove the book
+		# remove sent books and all references of libraries to it
 		for book_id in current_library.sent_book_ids:
 			for library_id in Library.books[book_id].library_ids:
-				if library_id != current_library_id:
-					Library.libraries[library_id].book_ids.remove(book_id)
+				Library.libraries[library_id].book_ids.remove(book_id)
 			del Library.books[book_id]
 
-		# remove empty libraries or update scores
+		# remove empty libraries and all references of books to it or update scores
 		ids_to_remove = []
 		for library_id, library in Library.libraries.items():
 			if len(library.book_ids) == 0:
@@ -101,7 +96,7 @@ if __name__ == '__main__':
 	for filename in filenames:
 		print(filename)
 
-		# restart
+		# reset all variables
 		Library.books = {}
 		Library.libraries = {}
 		Library.libraries_to_scan = {}
