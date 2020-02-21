@@ -3,30 +3,28 @@ import math
 
 class Library:
 	"""A library"""
+	books = {}
+	libraries = {}
+	libraries_to_scan = {}
+	time_left = 0
 
-	def __init__(self, id, book_ids, total_score, number_of_setup_days, number_of_books_per_day):
-		# Given attributes
-		self.id = id
+	def __init__(self, setup_time, rate, book_ids):
+		self.setup_time = setup_time
+		self.rate = rate
 		self.book_ids = book_ids
 		self.sent_book_ids = []
-
-		self.number_of_setup_days = number_of_setup_days
-		self.number_of_books_per_day = number_of_books_per_day
-		
-		# Derived attributes
-		self.total_score = total_score
-		self.max_active_time = number_of_setup_days + math.ceil(len(self.book_ids) / number_of_books_per_day)
-		self.weighted_score = total_score
-
-	def __str__(self):
-		return f'{self.id}\n'
-
-	def calcWeightedScore(self, books):
-		books_weighted_score = sum([book.getWeightedScore() for book_id, book in books.items()])
-		active_time = (math.ceil(len(self.book_ids) / self.number_of_books_per_day))
-
-		a, b, c = 1, 1, 1
-		self.weighted_score = self.total_score
+		self.score = 0
 
 	def __lt__(self, other):
-		return self.total_score > other.total_score
+		return self.score > other.score
+
+	def update_score(self):
+		# number of books that can still be scanned in the given time frame
+		books_left = max(0, (Library.time_left - self.setup_time)) * self.rate
+		# check if limited by the given time frame
+		if books_left < len(self.book_ids):
+			# limited by the given time frame
+			self.score = sum(Library.books[book_id].score for book_id in self.book_ids[:books_left])
+
+		# all books can be scanned
+		self.score = sum(Library.books[book_id].score for book_id in self.book_ids) / self.setup_time
