@@ -72,10 +72,10 @@ def calculate():
 		# remove empty libraries and all references of books to it or update scores
 		ids_to_remove = []
 		for library_id, library in Library.libraries.items():
+			library.update_score()
 			if len(library.book_ids) == 0:
 				ids_to_remove.append(library_id)
-			else:
-				library.update_score()
+
 
 		for library_id in ids_to_remove:
 			del Library.libraries[library_id]
@@ -85,12 +85,12 @@ def calculate():
 if __name__ == '__main__':
 	# initialization
 	filenames = [
-		'a_example',
-		'b_read_on',
+		# 'a_example',
+		# 'b_read_on',
 		'c_incunabula',
-		'd_tough_choices',
-		'e_so_many_books',
-		'f_libraries_of_the_world'
+		# 'd_tough_choices',
+		# 'e_so_many_books',
+		# 'f_libraries_of_the_world'
 	]
 
 	for filename in filenames:
